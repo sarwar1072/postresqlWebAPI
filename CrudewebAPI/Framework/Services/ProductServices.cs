@@ -15,15 +15,43 @@ namespace Framework.Services
             _unitOfWork = projectUnitOf;
         }
 
-        public void AddProduct(Product product)
+        public void AddProduct(Product model)
         {
-            if(product == null) {
+            if(model == null) {
                 throw new InvalidOperationException("product is null ");
             }
 
-            _unitOfWork.ProductRepository.Add(product);
+
+            _unitOfWork.ProductRepository.Add(model);
             _unitOfWork.Save();
 
         }
+        public void UpdateProduct(Product product)
+        {
+            
+            
+            _unitOfWork.ProductRepository.Edit(product);
+            _unitOfWork.Save();
+        }
+
+        public IList<Product> GetAllProduct() 
+          { 
+             return _unitOfWork.ProductRepository.GetAll();
+         }
+        public Product GetById(int id)
+        {
+            return _unitOfWork.ProductRepository.GetById(id);
+        }
+        public void Removeproduct(int id)
+        {
+            if(id == 0)
+            {
+                throw new InvalidOperationException("ID is null ");
+
+            }
+            _unitOfWork.ProductRepository.Remove(id); 
+            _unitOfWork.Save();
+        }
+
     }
 }

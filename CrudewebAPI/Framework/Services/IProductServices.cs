@@ -10,6 +10,11 @@ namespace Framework.Services
     public interface IProductServices
     {
         void AddProduct(Product product);
+        IList<Product> GetAllProduct();
+        Product GetById(int id);
+        void Removeproduct(int id);
+
+        void UpdateProduct(Product product);
 
     }
 }
