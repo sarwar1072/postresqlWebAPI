@@ -1,8 +1,8 @@
+using InventoryPanjeeri.Models;
 using Microsoft.AspNetCore.Mvc;
-using SimpleCrudeMVC.Models;
 using System.Diagnostics;
 
-namespace SimpleCrudeMVC.Controllers
+namespace InventoryPanjeeri.Controllers
 {
     public class HomeController : Controller
     {
@@ -15,7 +15,6 @@ namespace SimpleCrudeMVC.Controllers
 
         public IActionResult Index()
         {
-          //  IncreaseCount();
             return View();
         }
 
@@ -28,22 +27,6 @@ namespace SimpleCrudeMVC.Controllers
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-        }
-
-        public void IncreaseCount()
-        {
-            var count = HttpContext.Session.GetComplexData<int>("ItemCount");
-            count++;
-            HttpContext.Session.SetComplexData("ItemCount", count);
-            ViewBag.items = count;
-        }
-
-        public void DecreaseCount()
-        {
-            var count = HttpContext.Session.GetComplexData<int>("ItemCount");
-            count--;
-            HttpContext.Session.SetComplexData("ItemCount", count);
-            ViewBag.items = count;
         }
     }
 }

@@ -1,0 +1,86 @@
+﻿@model OrderViewModel
+@{
+    ViewData["Title"] = "Order Management";
+}
+
+<h4><u><b>Interface:</b></u></h4>
+
+<form method="post">
+
+    <div class="row mb-2">
+        <div class="col-md-2">Order No:</div>
+        <div class="col-md-2">
+            <input asp-for="OrderNo" class="form-control" />
+        </div>
+        <div class="col-md-1">
+            <button type="submit" formaction="/Order/Find" class="btn btn-primary">Find</button>
+        </div>
+
+        <div class="col-md-1 text-end">Date:</div>
+        <div class="col-md-2">
+            <input asp-for="Date" type="date" class="form-control" />
+        </div>
+    </div>
+    <div class="row mb-3">
+        <div class="col-md-2">Customer Name:</div>
+        <div class="col-md-6">
+            <input asp-for="CustomerName" class="form-control" />
+        </div>
+    </div>
+
+    <hr />
+
+    <div class="row mb-3">
+        <div class="col-md-1">Item:</div>
+        <div class="col-md-4">
+            <input asp-for="NewItem.Item" class="form-control" />
+        </div>
+        <div class="col-md-1">Quantity:</div>
+        <div class="col-md-2">
+            <input asp-for="NewItem.Quantity" class="form-control" />
+        </div>
+        <div class="col-md-2">
+            <button type="submit" formaction="/Order/AddItem" class="btn btn-outline-primary">ADD</button>
+        </div>
+    </div>
+
+    <table class="table table-bordered">
+        <thead class="table-secondary">
+            <tr>
+                <th>SL</th>
+                <th>Item</th>
+                <th>Qty</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @for (int i = 0; i < Model.Items.Count; i++)
+            {
+                <tr>
+                    <td>@(i + 1)</td>
+                    <td>@Model.Items[i].Item</td>
+                    <td>@Model.Items[i].Quantity</td>
+                    <td>
+                        <a asp-action="RemoveItem" asp-route-index="@i" class="text-danger">Remove</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <div class="row mb-3">
+        <div class="col-md-6 text-end fw-bold">
+            Total Qty :
+            @Model.Items.Sum(i => i.Quantity)
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12 text-center">
+            <button type="submit" formaction="/Order/SaveOrder" class="btn btn-success me-2">Save</button>
+            <button type="submit" formaction="/Order/UpdateOrder" class="btn btn-warning me-2">Update</button>
+            <button type="submit" formaction="/Order/DeleteOrder" class="btn btn-danger">Delete</button>
+        </div>
+    </div>
+
+</form>

@@ -1,8 +1,119 @@
-﻿@{
+﻿@using Microsoft.AspNetCore.Http;
+
+@{
     ViewData["Title"] = "Home Page";
 }
+<style>
+    .h-item {
+        height: 150px !important;
+    }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    .h-btn {
+        height: 50px !important;
+    }
+
+    .pt-btn {
+        padding-top: 13px !important;
+    }
+
+    a {
+        margin-right: 0px !important;
+    }
+
+    .h-side {
+        padding-top: 290px !important;
+    }
+
+    .case {
+        padding-top: 200px !important;
+    }
+</style>
+
+<div class="text-center pt-0 mt-0">
+    <div class="bg-secondary pt-3 px-5 pb-5">
+        <div class="row">
+            <div class="col-md-11">
+                <div class="card">
+                    <div class="card-body px-0 pt-0">
+                        <div class="bg-danger rounded-pill">
+                            <div class="text-center font-weight-bold text-white">MY CART</div>
+                        </div>
+                        <div class="mx-5">
+                            <div>
+                                <div class="row px-1 font-weight-bold">
+                                    <div class="col-md-6">
+                                        <div class="float-left">
+                                            <span>@ViewBag.items</span> Item
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="float-right">
+                                            Total: <span>100</span> Tk.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <hr class="text-danger bg-danger" />
+                            <div class="row">
+                                <div class="col-md-2">
+                                    <img src="~/img/besic_ali.png" />
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="row text-left">
+                                        <div class="col-12">
+                                            <span>বেসিক আলী ভোতিক অভিযান</span>
+                                            <span>হুমায়ুন আহমেদ</span>
+                                        </div>
+                                        <div class="col-12">
+                                            <a onclick="Decrease()" class="btn btn-primary my-1 mx-0">-</a>
+                                            <span class="btn bg-danger h-btn mx-0 pt-btn text-white">@ViewBag.items</span>
+                                            <a onclick="Increase()"class="btn btn-primary mx-0 my-1">+</a>
+                                        </div>
+                                        <div class="col-12">
+                                            <i class="fas fa-trash text-secondary"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-7 text-right font-weight-bold">
+                                    Tk. <span>100</span>
+                                </div>
+                            </div>
+                            <hr class="text-danger bg-danger" />
+                            <div class="h-item">
+
+                            </div>
+                            <hr class="text-danger bg-danger" />
+                            <div class="float-right font-weight-bold">
+                                <a href="#" class="btn btn-primary rounded-pill px-5 py-1">GO TO SHIPPING</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-1 case">
+                <i class="fas fa-shopping-cart fa-3x text-danger"></i>
+                <div class="mt-chat h-side">
+                    <i class="fas fa-comment-alt fa-3x text-primary"></i>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
+
+<script>
+    function Increase() {
+        var count = sessionStorage.getItem("count");
+        if (count == null) count = 0;
+        console.log(count);
+        count++;
+        sessionStorage.setItem("count", count)
+    }
+
+    function Decrease() {
+        var count = sessionStorage.getItem("count");
+        if (count == null) count = 0;
+        console.log(count);
+        count--;
+        sessionStorage.setItem("count", count)
+    }
+</script>

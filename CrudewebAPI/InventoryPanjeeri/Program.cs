@@ -1,11 +1,9 @@
 using Autofac.Extensions.DependencyInjection;
-using Autofac;
-using System.Reflection;
-using Framework.LibraryMVC;
+using InventoryPanjeeri.Models;
 using Microsoft.EntityFrameworkCore;
-using Autofac.Core;
+using System.Reflection;
 
-namespace SimpleCrudeMVC
+namespace InventoryPanjeeri
 {
     public class Program
     {
@@ -18,13 +16,14 @@ namespace SimpleCrudeMVC
             var webHostEnvironment = builder.Environment.WebRootPath;
 
             builder.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory());
-            builder.Host.ConfigureContainer<ContainerBuilder>(containerBuilder =>
-            {
-                containerBuilder.RegisterModule(new WebModule());
-                containerBuilder.RegisterModule(new InfrastructureModule(connectionString, assemblyName, webHostEnvironment));
-            });
+            //builder.Host.ConfigureContainer<ContainerBuilder>(containerBuilder =>
+            //{
+            //    containerBuilder.RegisterModule(new WebModule());
+            //    containerBuilder.RegisterModule(new InfrastructureModule(connectionString, assemblyName, webHostEnvironment));
+            //});
             builder.Services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlServer(connectionString, m => m.MigrationsAssembly(assemblyName)));
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
             // Add services to the container.
             builder.Services.AddControllersWithViews();
 
